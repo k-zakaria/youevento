@@ -6,6 +6,7 @@ use App\Models\Categorie;
 use Illuminate\Http\Request;
 use App\Models\Event;
 use App\Models\Location;
+use Illuminate\Support\Facades\Auth;
 
 class EventController extends Controller
 {
@@ -23,7 +24,8 @@ class EventController extends Controller
 
     public function show()
     {
-        $events = Event::all();
+        $organisateur_id = Auth::id();
+        $events = Event::where('organisateur_id', $organisateur_id)->get();
         $categories = Categorie::all();
         $locations = Location::all();
 
@@ -52,10 +54,12 @@ class EventController extends Controller
             'categorie_id' => 'required',
             'image' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
+        $request['organisateur_id'] = Auth::id();
+
 
         if ($request->hasFile('image')) {
             $image = $request->file('image');
-            $imageName = time() . '_' . $image->getClientOriginalName();
+            $imageName ='images/' . time() . '_' . $image->getClientOriginalName();
             $image->storeAs('public/images', $imageName);
         }
 

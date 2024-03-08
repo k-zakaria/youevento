@@ -37,7 +37,7 @@
                                     <line x1="3" y1="18" x2="21" y2="18"></line>
                                 </svg>
 
-                                <a href="/" class="d-flex align-items-center text-decoration-none">
+                                <a href="route('events.index')" class="d-flex align-items-center text-decoration-none">
                                     <h6></h6>
                                 </a>
                             </button>

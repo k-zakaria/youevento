@@ -15,9 +15,9 @@ class CreateReservationsTable extends Migration
     {
         Schema::create('reservations', function (Blueprint $table) {
             $table->id();
+            $table->boolean('status')->default(false);
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
-            $table->foreignId('event_id')->constrained()->onDelete('cascade');
-            $table->integer('nombre_places');
+            $table->foreignId('ticket_id')->constrained()->onDelete('cascade');
             $table->timestamps();
         });
     }

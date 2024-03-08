@@ -18,6 +18,7 @@ class Event extends Model
         'image',
         'location_id',
         'categorie_id',
+        'organisateur_id'
     ];
 
     public function categorie()

@@ -61,10 +61,9 @@
     </div>
 </div>
 
-<table class="table table-dark table-hover">
+<table class="table table table-hover">
     <thead>
         <tr>
-            <th scope="col">#</th>
             <th scope="col">Image</th>
             <th scope="col">Title</th>
             <th scope="col">Description</th>
@@ -73,10 +72,9 @@
     </thead>
     <tbody>
         @foreach ($data['events'] as $event)
-        <tr>
-            <th scope="row">1</th>
+        <tr class="">
             <td>@if($event->image)
-                <img src="{{ asset('storage/images/' . $event->image) }}" alt="Event Image" style="max-width: 100px;">
+                <img src="{{ asset('storage/images/' . $event->image) }}" alt="Event Image" style="max-width: 50px;">
                 @endif
             </td>
             <td>{{$event->title}}</td>
@@ -173,6 +171,7 @@
                     </div>
                 </div>
 
+                    <a href="{{route('tickets.index', $event->id)}}" class="btn btn-primary btn-sm">Ticket</a>
             </td>
         </tr>
         @endforeach

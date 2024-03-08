@@ -48,7 +48,7 @@
                 <td scope="col">{{$categorie->name}}</td>
                 <td>
                     <button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#deleteModal{{$categorie->id}}">
-                        Delete
+                        Delete 
                     </button>
                     <!-- Modal pour Supprimer -->
                     <div class="modal fade" id="deleteModal{{$categorie->id}}" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
@@ -63,7 +63,6 @@
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
-                                    <!-- Utilisez un formulaire pour envoyer une requête DELETE -->
                                     <form id="deleteForm{{$categorie->id}}" action="{{ route('categories.destroy', $categorie) }}" method="POST">
                                         @csrf
                                         @method('DELETE')

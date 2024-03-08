@@ -3,6 +3,7 @@
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CategorieController;
 use App\Http\Controllers\EventController;
+use App\Http\Controllers\ticketController;
 use App\Http\Controllers\ForgotPasswordController;
 use App\Models\Categorie;
 use Illuminate\Support\Facades\Route;
@@ -19,7 +20,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('home/home');
+    return view('dashboard/ticket');
 });
 
 
@@ -36,6 +37,11 @@ Route::post('reset-password', [ForgotPasswordController::class, 'submitResetPass
 
 Route::get('/', [EventController::class, 'index'])->name('events.index');
 Route::middleware('organisateur')->group(function () {
+    Route::get('/tickets/{id}', [TicketController::class, 'index'])->name('tickets.index');
+    Route::post('/tickets', [TicketController::class, 'store'])->name('tickets.store');
+    Route::put('/tickets/{ticket}', [TicketController::class, 'update'])->name('tickets.update');
+    Route::delete('/tickets/{ticket}', [TicketController::class, 'destroy'])->name('tickets.destroy');
+
     Route::get('/events', [EventController::class, 'show'])->name('events.show');
     Route::post('/events', [EventController::class, 'store'])->name('events.store');
     Route::put('/events/{event}', [EventController::class, 'update'])->name('events.update');
@@ -44,7 +50,6 @@ Route::middleware('organisateur')->group(function () {
 
 
 Route::middleware('admin')->group(function () {
-    Route::get('/category', [EventController::class, 'index'])->name('categories.index');
     Route::get('/categories', [CategorieController::class, 'index'])->name('categories.index');
     Route::post('/categories', [CategorieController::class, 'store'])->name('categories.store');
     Route::put('/categories/{categorie}', [CategorieController::class, 'update'])->name('categories.update');

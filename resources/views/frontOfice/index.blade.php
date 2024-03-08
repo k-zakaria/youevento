@@ -22,7 +22,9 @@
             @foreach ($data['events'] as $event)
             <div class="col mb-5">
                 <div class="card h-100">
-                    <img src="{{ $event->image ? asset('storage/' . $event->image) : 'https://c8.alamy.com/compfr/2g7ft6h/parametre-fictif-de-photo-d-avatar-par-defaut-icone-d-image-de-profil-grise-homme-en-t-shirt-2g7ft6h.jpg' }}" alt="{{ $event->title }}">
+                    @if($event->image)
+                    <img src="{{ asset('storage/images/' . $event->image) }}" alt="Event Image">
+                    @endif
                     <div class="card-body p-4">
                         <div class="text-center">
                             <h5 class="fw-bolder">{{$event->title}}</h5>
@@ -32,26 +34,28 @@
                     <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
                         <div class="text-center">
                             <!-- Button trigger modal -->
-                            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+                            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop{{$event->id}}">
                                 détail
                             </button>
 
                             <!-- Modal -->
-                            <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-                                <div class="modal-dialog">
-                                    <div class="modal-content">
+                            <div class="modal fade lh-sm" id="staticBackdrop{{$event->id}}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                                <div class="modal-dialog" style="margin-right: 590px; margin-left: auto;">
+                                    <div class="modal-content" style="width: 180%;">
                                         <div class="modal-header">
                                             <h5 class="modal-title" id="staticBackdropLabel">Modal title</h5>
                                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                         </div>
                                         <div class="modal-body">
-                                            <div class="event">
+                                            <div class="m-2">
                                                 <h2>{{ $event->title }}</h2>
-                                                <img src="{{ $event->image_path }}" alt="{{ $event->title }}">
+                                                @if($event->image)
+                                                <img src="{{ asset('storage/images/' . $event->image) }}" alt="Event Image" style="max-width: 400px;">
+                                                @endif
                                                 <p>Date: {{ $event->date }}</p>
                                                 <p>{{ $event->content }}</p>
                                                 @if ($event->categorie)
-                                                <p>categorie: {{ $event->location->name }}</p>
+                                                <p>Pays: {{ $event->location->name }}</p>
                                                 @else
                                                 <p>categorie: N/A</p>
                                                 @endif
@@ -68,8 +72,6 @@
         </div>
     </div>
 </section>
-
-
 
 <section class="pt-4">
     <div class="container row px-lg-5">
